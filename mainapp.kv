@@ -1,0 +1,133 @@
+
+<MainWindow>:
+
+    #map
+    tabs: tabs
+
+    GridLayout:
+        cols: 1
+        
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: [1, .1]
+            Image:
+                source: "img/logo.png"
+                size_hint: [.85, 1]
+                fit_mode: "contain"
+                canvas.before:
+                    Color:
+                        rgba: [.349, .451, .639, 1]
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+            Button:
+                text: ""
+                size_hint: [.15, 1]
+                background_normal: "img/edit_button.png"
+                background_down: "img/edit_button.png"
+                border: (10,10,10,10)
+                on_press: root.tabs_popup()
+        
+        #Label:
+        #    text: "TO DO LIST"
+        #    helign: "center"
+        #    size_hint: [1, .1]
+        #    background_color: [1,1,1,1]
+        #    bold: True
+        #    font_size: 70
+        #    italic: True
+        #    outline_color: [.1, .1, .1, 1]
+        #    outline_width: 3
+        #    canvas.before:
+        #        Color:
+        #            rgba: [.2, .4, .7, 1]
+        #        Rectangle:
+        #            size: self.size
+        #            pos: self.pos
+
+
+        #separation line
+        Label:
+            size_hint: [1, .005]
+            text: ""
+            canvas.before:
+                Color:
+                    rgba: [1,1,1,1]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+        TabbedPanel:
+            id: tabs
+            do_default_tab: True
+            default_tab_text: "Daily"
+            size_hint: [1, .9]
+
+            canvas.before:
+                Color:
+                    rgba: [.349, .451, .639, .7]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+    
+
+<TabLayout>:
+
+    text_in: text_in
+    scroll: scroll
+
+    BoxLayout:
+        orientation: "vertical"
+
+        GridLayout:
+            cols: 2
+            size_hint: [1, .07]
+
+            canvas.before:
+                Color:
+                    rgba: [.1, .1, .1, 1]
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            TextInput:
+                id: text_in
+                size_hint_x: .9
+                halign: "center"
+                padding: (0, 40)
+                foreground_color: [1,1,1,1]
+                font_size: 50
+                cursor_color: [1,1,1,1]
+                multiline: False
+                background_color: [.6,.6,.6,1]
+                background_normal: "img/btn_normal.png"
+                background_active: "img/btn_down.png"
+                border: [5,5,5,5]
+                on_text_validate: root.add_task(*args)
+
+            Button:
+                text: "+"
+                font_size: 70
+                size_hint_x: .1
+                background_color: [.6,.6,.6,1]
+                on_press: root.add_task(*args)
+                background_normal: "img/btn_normal.png"
+                backgournd_down: "img/btn_down.png"
+                border: [1,1,1,1]
+
+        BoxLayout:
+            size_hint: [1, .83]
+
+            ScrollView:
+                id: scroll
+                do_scroll_x: False
+                do_scroll_y: True
+                size: (self.parent.width, self.parent.height)
+
+                canvas.before:
+                    Color:
+                        rgba: [.1, .1, .1, 1]
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
